@@ -1,7 +1,7 @@
 {
 	"name": "@bilalyaver/nodejs-boilerplate",
 	"description": "Nodejs Boilerplate",
-	"version": "0.0.27",
+	"version": "0.0.28",
 	"license": "MIT",
 	"homepage": "https://github.com/bilalyaver/nodejs-boilerplate#readme",
 	"bin": {
