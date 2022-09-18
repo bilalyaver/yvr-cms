@@ -1,0 +1,50 @@
+{
+	"name": "@bilalyaver/nodejs-boilerplate",
+	"description": "Nodejs Boilerplate",
+	"version": "0.0.25",
+	"license": "MIT",
+	"bin": {
+		"yvr": "index.js"
+	},
+	"type": "module",
+	"author": {
+		"name": "Bilal Yaver",
+		"email": "bilalyaver@outlook.com",
+		"url": "https://whatisday.today"
+	},
+	"keywords": [
+		"nodejs-mongoose-crud",
+		"Bilal Yaver",
+		"nodejs-boilerplate",
+		"nodejs-mongoose-boilerplate",
+		"nodejs-mongoose-crud-boilerplate"
+	],
+	"files": [
+		"index.js",
+		"utils",
+		"temp",
+		"tasks",
+		"helpers"
+	],
+	"scripts": {
+		"format": "prettier --write \"./**/*.{js,json}\""
+	},
+	"dependencies": {
+		"chalk": "^4.1.2",
+		"cli-alerts": "^1.2.2",
+		"cli-handle-error": "^4.4.0",
+		"cli-handle-unhandled": "^1.1.1",
+		"cli-meow-help": "^3.1.0",
+		"cli-welcome": "^2.2.2",
+		"dotenv": "^16.0.2",
+		"express": "^4.18.1",
+		"inquirer": "^9.1.1",
+		"listr": "^0.14.3",
+		"meow": "^9.0.0",
+		"mongoose": "^6.6.1",
+		"path": "^0.12.7"
+	},
+	"devDependencies": {
+		"prettier": "^2.7.1"
+	}
+}
