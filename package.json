@@ -1,7 +1,7 @@
 {
 	"name": "@bilalyaver/nodejs-boilerplate",
 	"description": "Nodejs Boilerplate",
-	"version": "0.0.25",
+	"version": "0.0.27",
 	"license": "MIT",
 	"homepage": "https://github.com/bilalyaver/nodejs-boilerplate#readme",
 	"bin": {
@@ -41,18 +41,14 @@
 		"format": "prettier --write \"./**/*.{js,json}\""
 	},
 	"dependencies": {
-		"chalk": "^4.1.2",
 		"cli-alerts": "^1.2.2",
 		"cli-handle-error": "^4.4.0",
 		"cli-handle-unhandled": "^1.1.1",
 		"cli-meow-help": "^3.1.0",
 		"cli-welcome": "^2.2.2",
-		"dotenv": "^16.0.2",
-		"express": "^4.18.1",
 		"inquirer": "^9.1.1",
 		"listr": "^0.14.3",
 		"meow": "^9.0.0",
-		"mongoose": "^6.6.1",
 		"path": "^0.12.7"
 	},
 	"devDependencies": {
