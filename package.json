@@ -3,14 +3,25 @@
 	"description": "Nodejs Boilerplate",
 	"version": "0.0.25",
 	"license": "MIT",
+	"homepage": "https://github.com/bilalyaver/nodejs-boilerplate#readme",
 	"bin": {
 		"yvr": "index.js"
 	},
 	"type": "module",
+	"repository": {
+		"repository": {
+			"type": "git",
+			"url": "https://github.com/bilalyaver/nodejs-boilerplate.git"
+		}
+	},
 	"author": {
 		"name": "Bilal Yaver",
-		"email": "bilalyaver@outlook.com",
+		"email": "bilal@thejs.app",
 		"url": "https://whatisday.today"
+	},
+	"bugs": {
+		"url": "https://github.com/bilalyaver/nodejs-boilerplate/issues",
+		"email": "bilal@thejs.app"
 	},
 	"keywords": [
 		"nodejs-mongoose-crud",
