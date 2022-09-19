@@ -1,7 +1,7 @@
 {
 	"name": "@bilalyaver/nodejs-boilerplate",
 	"description": "Nodejs Boilerplate",
-	"version": "0.0.28",
+	"version": "0.0.34",
 	"license": "MIT",
 	"homepage": "https://github.com/bilalyaver/nodejs-boilerplate#readme",
 	"bin": {
@@ -25,7 +25,8 @@
 	},
 	"keywords": [
 		"nodejs-mongoose-crud",
-		"Bilal Yaver",
+		"cli",
+		"nodejs cli",
 		"nodejs-boilerplate",
 		"nodejs-mongoose-boilerplate",
 		"nodejs-mongoose-crud-boilerplate"
@@ -41,6 +42,7 @@
 		"format": "prettier --write \"./**/*.{js,json}\""
 	},
 	"dependencies": {
+		"chalk": "^5.0.1",
 		"cli-alerts": "^1.2.2",
 		"cli-handle-error": "^4.4.0",
 		"cli-handle-unhandled": "^1.1.1",

@@ -16,14 +16,11 @@ const input = cli.input;
 const flags = cli.flags;
 const { clear, debug } = flags;
 
-// Creators
+// cli commands and flags
 import createModel from './utils/createModel.js';
-
-// Chekers
 import checkPackage from './utils/checkPackage.js';
-
-// Initializer
 import newProject from './utils/newProject.js';
+import getAllRouters from './helpers/getAllRouters.js';
 
 (async () => {
 	init({ clear });
@@ -32,15 +29,22 @@ import newProject from './utils/newProject.js';
 	debug && log.error(flags);
 
 	if (flags.newProject) {
-		console.log("newProject");
 		await newProject();
 		return
 	}
 
+	
+
+	if (flags.getAllRouters) {
+		getAllRouters();
+		return
+	}
+		
+	
+
 	const checkPackageResult = checkPackage();
 
 	if (!checkPackageResult.isThere) {
-		console.log("checkPackageResult");
 		log.warning(checkPackageResult.message);
 		log.info(checkPackageResult.command);
 		return
