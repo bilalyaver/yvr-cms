@@ -4,7 +4,7 @@ import log from '../utils/log.js';
 import chalk from 'chalk';
 
 const getAllRouters = async () => {
-    const routersPath = path.join(process.cwd(), 'routers');
+    const routersPath = path.join(process.cwd(), 'src/routers');
     const routers = fs.readdirSync(routersPath);
     const env = fs.readFileSync(path.join(process.cwd(), '.env'), 'utf8');
 
@@ -14,15 +14,53 @@ const getAllRouters = async () => {
 
     routers.forEach(item => {
         const routerName = item.split('.')[0];
-        if (routerName != 'index') {
+        if (routerName !== 'index') {
+            const routerFilePath = path.join(routersPath, item);
+            const routerContent = fs.readFileSync(routerFilePath, 'utf8');
 
-            console.log(`${chalk.blue("GET")}: /api/${routerName}\n${chalk.blue("GET")}: /api/${routerName}/:id\n${chalk.green("POST")}: /api/${routerName}\n${chalk.green("PUT")}: /api/${routerName}/:id\n${chalk.red("DELETE")}: /api/${routerName}/:id`);
+            // Başlık ekle
+            console.log(chalk.bold.blue(`\nRoutes for ${routerName}:\n`));
+
+            const routes = extractRoutes(routerContent, routerName);
+            routes.forEach(route => {
+                console.log(route);
+            });
         }
     });
+};
 
-}
+const extractRoutes = (fileContent, routerName) => {
+    const routes = [];
+    const routeRegex = /(router\.(get|post|put|delete)\()(['"`](.*?)['"`])/g;
+    let match;
 
+    while ((match = routeRegex.exec(fileContent)) !== null) {
+        const method = match[2].toUpperCase();
+        const routePath = match[4];
 
+        // Methodları renklendirme
+        let coloredMethod;
+        switch (method) {
+            case 'GET':
+                coloredMethod = chalk.blue(method);
+                break;
+            case 'POST':
+                coloredMethod = chalk.green(method);
+                break;
+            case 'PUT':
+                coloredMethod = chalk.yellow(method);
+                break;
+            case 'DELETE':
+                coloredMethod = chalk.red(method);
+                break;
+            default:
+                coloredMethod = method;
+        }
 
+        routes.push(`${coloredMethod}: /api/${routerName}${routePath}`);
+    }
 
-export default getAllRouters
+    return routes;
+};
+
+export default getAllRouters;
