@@ -74,7 +74,6 @@ const createModel = async (input) => {
     } catch (err) {
         log.error(err);
     }
-    //console.log(input);
 
 
 }

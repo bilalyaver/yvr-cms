@@ -1,7 +1,7 @@
 {
 	"name": "@bilalyaver/nodejs-boilerplate",
 	"description": "Nodejs Boilerplate",
-	"version": "0.0.35",
+	"version": "1.0.1",
 	"license": "MIT",
 	"homepage": "https://github.com/bilalyaver/nodejs-boilerplate#readme",
 	"bin": {
@@ -51,6 +51,7 @@
 		"inquirer": "^9.1.1",
 		"listr": "^0.14.3",
 		"meow": "^9.0.0",
+		"open": "^10.1.0",
 		"path": "^0.12.7"
 	},
 	"devDependencies": {

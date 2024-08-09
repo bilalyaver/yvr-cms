@@ -10,7 +10,6 @@ const packageInstaller = (module) => {
             try {
                 return require(module)
             } catch (e) {
-                console.log(require.cache)
                 console.log(e)
             }
         })

@@ -1,5 +1,4 @@
 const modelGenerator = (capitalizedModelName, currentModelFields) => {
-    console.log(currentModelFields);
     const modelTemplate = `const mongoose = require('mongoose');
 
 const ${capitalizedModelName}Schema = new mongoose.Schema(

@@ -5,7 +5,8 @@ const packageGenerator = (projectName, description, author) => {
         "description": description,
         "main": "index.js",
         "scripts": {
-            "test": "echo \"Error: no test specified\" && exit 1"
+            "dev": "NODE_ENV=development && nodemon app.js test",
+            "start": "NODE_ENV=production && node app.js"
         },
         "keywords": [],
         "author": author,

@@ -4,7 +4,7 @@
  * nodejs-mongoose-crud
  * later
  *
- * @author Bilal Yaver <whatisday.today>
+ * @author Bilal Yaver <thejs.app>
  */
 
 import init from './utils/init.js';
