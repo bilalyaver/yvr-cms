@@ -1,9 +1,3 @@
-
-# Project Title
-
-A brief description of what this project does and who it's for
-
-
 # Node.js Boilerplate
 
 This project is for backend developers with node js. It create the "Mongoose models, routers and controllers" with cli command line.
