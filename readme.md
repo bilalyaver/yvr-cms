@@ -57,3 +57,4 @@ v0.0.40 - Initial Release
 	-	Basic CLI Commands:
 	-	The yvr -p command allows you to create a new Node.js project.
 	-	The yvr -n <name> command automatically generates a Mongoose model, router, and controller.
+//main test
