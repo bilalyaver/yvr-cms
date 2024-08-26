@@ -28,9 +28,7 @@ For support send email to address bilal@thejs.app
 - For new project
 
 ```bash 
-  yvr -p
+  yvr -p or npx yvr-headless-cms -p
 ```
 
 ## Changelog
-
-v0.0.1 
