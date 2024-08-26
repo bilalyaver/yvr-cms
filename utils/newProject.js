@@ -17,7 +17,8 @@ export default async () => {
 
                     return "Please enter project name";
                 }
-            }
+            },
+            default: 'test'
         },
         {
             type: 'input',
@@ -31,30 +32,9 @@ export default async () => {
         },
         {
             type: 'input',
-            name: 'email',
-            message: 'Enter dashboard email?',
-            validate: function (email) {
-                if (email != null && email != '') {
-                    if (email.includes('@')) {
-                        return true;
-                    }
-                    return 'Please enter a valid email';
-                } else {
-                    return 'Please enter email';
-                }
-            }
-        },
-        {
-            type: 'password',
-            name: 'password',
-            message: 'Enter dashboard password?',
-            validate: function (password) {
-                if (password != null && password != '') {
-                    return true;
-                } else {
-                    return 'Please enter password';
-                }
-            }
+            name: 'port',
+            message: 'Enter project port?',
+            default: 8080
         },
         {
             type: 'list',

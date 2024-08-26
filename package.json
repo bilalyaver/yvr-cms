@@ -1,7 +1,7 @@
 {
-	"name": "@bilalyaver/nodejs-boilerplate",
-	"description": "Nodejs Boilerplate",
-	"version": "1.0.3",
+	"name": "yvr-headless-cms",
+	"description": "A headless CMS boilerplate with Node.js, Mongoose, Nextjs and CLI",
+	"version": "0.0.2",
 	"license": "MIT",
 	"homepage": "https://github.com/bilalyaver/nodejs-boilerplate#readme",
 	"bin": {
@@ -17,7 +17,7 @@
 	"author": {
 		"name": "Bilal Yaver",
 		"email": "bilal@thejs.app",
-		"url": "https://whatisday.today"
+		"url": "https://watchmantower.com"
 	},
 	"bugs": {
 		"url": "https://github.com/bilalyaver/nodejs-boilerplate/issues",
@@ -29,7 +29,12 @@
 		"nodejs cli",
 		"nodejs-boilerplate",
 		"nodejs-mongoose-boilerplate",
-		"nodejs-mongoose-crud-boilerplate"
+		"nodejs-mongoose-crud-boilerplate",
+		"nodejs-mongoose-crud-cli",
+		"nodejs-boilerplate-with-ui",
+		"nodejs-cli-with-ui",
+		"nodejs-mongoose-crud-cli-with-ui",
+		"nodejs-mongoose-crud-boilerplate-with-nextjs-ui"
 	],
 	"files": [
 		"index.js",
@@ -52,6 +57,7 @@
 		"listr": "^0.14.3",
 		"meow": "^9.0.0",
 		"open": "^10.1.0",
+		"ora": "^8.0.1",
 		"path": "^0.12.7"
 	},
 	"devDependencies": {
