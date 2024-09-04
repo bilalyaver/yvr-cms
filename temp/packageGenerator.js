@@ -5,7 +5,7 @@ const packageGenerator = (projectName, description, author) => {
         "description": description,
         "main": "index.js",
         "scripts": {
-            "dev": "cross-env NODE_ENV=development nodemon app.js",
+            "dev": "cross-env NODE_ENV=development nodemon app.js --ignore src/schemas",
             "start": "cross-env NODE_ENV=production node app.js",
             "build": "next build ./client"
         },

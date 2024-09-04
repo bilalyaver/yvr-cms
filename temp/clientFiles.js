@@ -1,7 +1,7 @@
 const clientFiles = [
-    {
-        path: 'client/pages/_app.js',
-        content: `import '../globals.css'
+  {
+    path: 'client/pages/_app.js',
+    content: `import '../globals.css'
 import { Toaster } from "@/components/ui/toaster";
 
 const App = ({ Component, pageProps }) => {
@@ -14,10 +14,10 @@ const App = ({ Component, pageProps }) => {
 }
 
 export default App;`
-    },
-    {
-        path: 'client/middleware.js',
-        content: `import { NextResponse } from 'next/server';
+  },
+  {
+    path: 'client/middleware.js',
+    content: `import { NextResponse } from 'next/server';
 import axios from 'axios';
 import { getCookie } from 'cookies-next';
 
@@ -74,10 +74,10 @@ export async function middleware(request) {
 
     return NextResponse.next();
 }`
-    },
-    {
-        path: 'client/globals.css',
-        content: `@tailwind base;
+  },
+  {
+    path: 'client/globals.css',
+    content: `@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -119,10 +119,10 @@ export async function middleware(request) {
     @apply font-heading;
   }
 }`
-    },
-    {
-        path: 'tailwind.config.mjs',
-        content: `
+  },
+  {
+    path: 'tailwind.config.mjs',
+    content: `
 /** @type {import('tailwindcss').Config} */
 
 import { fontFamily } from "tailwindcss/defaultTheme";
@@ -198,10 +198,10 @@ module.exports = {
   plugins: [require("tailwindcss-animate")],
 }
 `
-    },
-    {
-        path: 'postcss.config.mjs',
-        content: `
+  },
+  {
+    path: 'postcss.config.mjs',
+    content: `
        /** @type {import('postcss-load-config').Config} */
 const config = {
   plugins: {
@@ -212,24 +212,25 @@ const config = {
 export default config;
 
          `
-    },
-    {
-        path: 'next.config.mjs',
-        content: `/** @type {import('next').NextConfig} */
+  },
+  {
+    path: 'next.config.mjs',
+    content: `/** @type {import('next').NextConfig} */
 
 const nextConfig = {
   reactStrictMode: false,
   env: {
     API_URL: 'http://localhost:8080/api',
     API_KEY: 'n7rT14C6DlyYQdJPknwVfZWGkU5m1nYC',
+    IMAGE_PATH: 'http://localhost:8080/images',
   }
 }
 
 export default nextConfig;`
-    },
-    {
-        path: 'client/jsconfig.json',
-        content: `{
+  },
+  {
+    path: 'client/jsconfig.json',
+    content: `{
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -242,10 +243,10 @@ export default nextConfig;`
     }
   }
 }`
-    },
-    {
-        path: 'jsconfig.json',
-        content: `{
+  },
+  {
+    path: 'jsconfig.json',
+    content: `{
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
@@ -253,10 +254,10 @@ export default nextConfig;`
     }
   }
 }`
-    },
-    {
-        path:'components.json',
-        content:`
+  },
+  {
+    path: 'components.json',
+    content: `
        {
   "$schema": "https://ui.shadcn.com/schema.json",
   "style": "default",
@@ -271,15 +272,17 @@ export default nextConfig;`
   },
   "aliases": {
     "components": "client/components",
+    "hooks": "client/hooks",
+    "lib": "client/lib",
     "utils": "lib/utils"
   }
 }
         
         `
-    },
-    {
-        path:'client/pages/_document.js',
-        content:`
+  },
+  {
+    path: 'client/pages/_document.js',
+    content: `
         import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
@@ -295,17 +298,17 @@ export default function Document() {
     )
 }
         `
-    },
-    {
-        path: 'client/lib/utils.js',
-        content: `import { clsx } from "clsx"
+  },
+  {
+    path: 'client/c/lib/utils.js',
+    content: `import { clsx } from "clsx"
 import { twMerge } from "tailwind-merge"
 
 export function cn(...inputs) {
   return twMerge(clsx(inputs))
 }
 `
-    }
+  }
 ];
 
 

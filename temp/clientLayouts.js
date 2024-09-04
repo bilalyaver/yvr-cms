@@ -5,14 +5,14 @@ const clientLayouts = [
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import { logout } from "yvr-core/client"
 
 import { Bricolage_Grotesque } from 'next/font/google'
 import { Space_Mono } from 'next/font/google'
-import { cn } from '@/lib/utils'
+import { cn } from '@/c/lib/utils'
 import { CircleUserIcon, MenuIcon, Package2Icon } from "lucide-react"
+import MediaManagementMain from "@/components/contentManagement/mediaManagementPanel/MediaManagementMain"
 
 const fontHeading = Bricolage_Grotesque({
   subsets: ['latin'],
@@ -41,7 +41,7 @@ export default function DashboardLayout({ children, title, rightComponent }) {
 
       >
         <title>{title}</title>
-        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6">
+        <header className="sticky top-0 flex h-16 items-center gap-4 border-b bg-background px-4 md:px-6 z-50">
           <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
             <Link href="/" className="flex items-center gap-2 text-lg font-semibold md:text-base" prefetch={false}>
               <Package2Icon className="h-6 w-6" />
@@ -60,6 +60,7 @@ export default function DashboardLayout({ children, title, rightComponent }) {
             <Link href="/content-management" className="text-muted-foreground transition-colors hover:text-foreground w-40" prefetch={false}>
               Content Management
             </Link>
+            <MediaManagementMain />
           </nav>
           <Sheet>
             <SheetTrigger asChild>
@@ -120,7 +121,7 @@ export default function DashboardLayout({ children, title, rightComponent }) {
               {rightComponent}
             </div>
           </div>
-          <div className="mx-auto grid w-full  items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
+          <div className="mx-auto grid w-full items-start gap-6 md:grid-cols-[180px_1fr] lg:grid-cols-[250px_1fr]">
             {children}
           </div>
         </main>

@@ -35,20 +35,18 @@ export default index;
     {
         path: 'client/pages/collections/[collectionName]/index.js',
         content: `import FieldList from "@/components/collection/FieldList";
-import { Button } from "@/components/ui/button";
 import CollectionLayout from "@/layout/CollectionLayout";
 import DashboardLayout from "@/layout/DashboardLayout";
 import { useRouter } from "next/router";
 import { useState, useEffect } from 'react';
 import { schemaManager } from "yvr-core/client";
-import { useToast } from "@/components/ui/use-toast"
+import { toast } from "@/hooks/use-toast";
+import ContentTypeBuilder from "@/components/collection/ContentTypeBuilder";
 
-const index = () => {
+export default function index() {
     const [collection, setCollection] = useState({});
     const router = useRouter();
     const { collectionName } = router.query;
-
-    const { toast } = useToast();
 
     const getFields = async () => {
         try {
@@ -66,18 +64,14 @@ const index = () => {
     }, [collectionName]);
 
     return (
-        <DashboardLayout title={collection?.model?.name} rightComponent={
-            <Button onClick={() => router.push(\`/collections/\${collectionName}/add-field\`)}>+Add Field</Button>
-        }>
+        <DashboardLayout title={collection?.model?.name} rightComponent={<ContentTypeBuilder />}>
             <CollectionLayout>
                 {collection?.model?.name} Collection
-                <FieldList fields={collection?.fields} />
+                <FieldList collection={collection} />
             </CollectionLayout>
         </DashboardLayout>
     );
-}
-
-export default index;`
+}`
     },
     {
         path: 'client/pages/collections/new.js',
@@ -201,6 +195,27 @@ export default index;`
     },
     {
         path: 'client/pages/content-management/[collectionName]/new.js',
+        content: `import NewContent from "@/components/contentManagement/NewContent";
+import ContentManagementLayout from "@/layout/ContentManagementLayout";
+import DashboardLayout from "@/layout/DashboardLayout";
+import { useRouter } from "next/router";
+
+const index = () => {
+    const router = useRouter();
+    const { collectionName } = router.query;
+    return (
+        <DashboardLayout title={\`Content Management > \${collectionName}\`} >
+            <ContentManagementLayout>
+                <NewContent />
+            </ContentManagementLayout>
+        </DashboardLayout>
+    );
+}
+
+export default index;`
+    },
+    {
+        path: 'client/pages/content-management/[collectionName]/[id].js',
         content: `import NewContent from "@/components/contentManagement/NewContent";
 import ContentManagementLayout from "@/layout/ContentManagementLayout";
 import DashboardLayout from "@/layout/DashboardLayout";

@@ -8,8 +8,11 @@ const clientFolder = [
     'client/components',
     'client/components/collection',
     'client/components/contentManagement',
+    'client/components/contentManagement/contentTypes',
+    'client/components/contentManagement/mediaManagementPanel',
     'client/components/ui',
-    'client/lib',
+    'client/c',
+    'client/c/lib',
     'client/layout'
 ];
 

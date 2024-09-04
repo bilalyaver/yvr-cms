@@ -1,8 +1,8 @@
 const srcFolder = [
     'src',
     'src/schemas',
-    'src/public',
-    'src/public/images',
+    'public',
+    'public/images',
 ];
 
 

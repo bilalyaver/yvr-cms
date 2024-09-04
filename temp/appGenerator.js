@@ -3,22 +3,32 @@ const appGenerator = () => {
 const express = require('express');
 const next = require('next');
 const path = require('path');
-const { createRoute, schemaManager } = require('yvr-core');
+const cors = require('cors');
+const { createRoute, schemaManager, mediaRoute } = require('yvr-core');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev, dir: path.join(__dirname, 'client') });
+
+
 
 const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
   const server = express();
 
+  // Public klasörünü statik yapma
+  const publicPath = path.join(__dirname, 'public');
+  server.use(express.static(publicPath));
   server.use(express.urlencoded({ extended: true }));
   server.use(express.json());
+
+  // CORS
+  server.use(cors());
 
   // Routers
   server.use('/schemaManager', schemaManager);
   server.use('/api', createRoute);
+  server.use('/media', mediaRoute);
 
   server.all('/api/auth/*', (req, res) => {
     return handle(req, res);

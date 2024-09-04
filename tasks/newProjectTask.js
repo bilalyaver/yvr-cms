@@ -13,6 +13,7 @@ import clientFiles from "../temp/clientFiles.js"
 import clientLayouts from "../temp/clientLayouts.js"
 import srcFolder from "../temp/srcFolders.js"
 import clientComponents from "../temp/clientComponents.js"
+import schemas from "../temp/schemaGenerator.js"
 
 const newProjectTask = (questions) => {
     const tasks = new Listr([
@@ -131,8 +132,10 @@ const newProjectTask = (questions) => {
                 }
             },
             task: (ctx) => {
-                const userSchema = path.join(process.cwd(), 'src/schemas/User.json')
-                fs.writeFileSync(userSchema, schemaGenerator.user());
+                schemas.forEach(element => {
+                    const schemaPath = path.join(process.cwd(), element.path)
+                    fs.writeFileSync(schemaPath, element.content);
+                } );
             }
         },
         {
@@ -150,7 +153,7 @@ const newProjectTask = (questions) => {
         {
             title: "required packages installing",
             task: (ctx) => {
-                packageInstaller("express, dotenv, mongoose, bcrypt, jsonwebtoken, next, @tanstack/react-table, cookies-next, cross-env, axios, class-variance-authority, clsx, lucide-react, tailwind-merge, tailwindcss-animate, tailwindcss --save-dev, postcss --save-dev, yvr-core");
+                packageInstaller("express, react-dropzone, dotenv, cors, mongoose, bcrypt, slugify, jsonwebtoken,  next, @tanstack/react-table, cookies-next, cross-env, axios, class-variance-authority, clsx, lucide-react, tailwind-merge, tailwindcss-animate, tailwindcss --save-dev, postcss --save-dev, yvr-core");
                 installComponents();
             }
         },
