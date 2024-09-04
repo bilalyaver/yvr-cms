@@ -1,16 +1,16 @@
 {
-	"name": "yvr-headless-cms",
+	"name": "@bilalyaver/yvr-cms",
 	"description": "A headless CMS boilerplate with Node.js, Mongoose, Nextjs and CLI",
-	"version": "0.0.13",
+	"version": "0.1.0",
 	"license": "MIT",
-	"homepage": "https://github.com/bilalyaver/nodejs-boilerplate#readme",
+	"homepage": "https://github.com/bilalyaver/yvr-cms#readme",
 	"bin": {
 		"yvr": "index.js"
 	},
 	"type": "module",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/bilalyaver/nodejs-boilerplate.git"
+		"url": "https://github.com/bilalyaver/yvr-cms.git"
 	},
 	"author": {
 		"name": "Bilal Yaver",
@@ -18,7 +18,7 @@
 		"url": "https://watchmantower.com"
 	},
 	"bugs": {
-		"url": "https://github.com/bilalyaver/nodejs-boilerplate/issues",
+		"url": "https://github.com/bilalyaver/yvr-cms/issues",
 		"email": "bilal@thejs.app"
 	},
 	"keywords": [
@@ -42,7 +42,10 @@
 		"helpers"
 	],
 	"scripts": {
-		"format": "prettier --write \"./**/*.{js,json}\""
+		"format": "prettier --write \"./**/*.{js,json}\"",
+		"publish:github": "npm publish --registry=https://npm.pkg.github.com/",
+		"publish:npm": "npm publish --registry=https://registry.npmjs.org/",
+		"publish:both": "npm run publish:github && npm run publish:npm"
 	},
 	"dependencies": {
 		"chalk": "^5.0.1",
