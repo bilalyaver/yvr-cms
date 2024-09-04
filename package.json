@@ -1,67 +1,67 @@
 {
-	"name": "yvr-headless-cms",
+	"name": "@bilalyaver/yvr-headless-cms",
 	"description": "A headless CMS boilerplate with Node.js, Mongoose, Nextjs and CLI",
 	"version": "0.0.4",
 	"license": "MIT",
 	"homepage": "https://github.com/bilalyaver/nodejs-boilerplate#readme",
 	"bin": {
-	  "yvr": "index.js"
+		"yvr": "index.js"
 	},
 	"type": "module",
 	"repository": {
-	  "type": "git",
-	  "url": "https://github.com/bilalyaver/nodejs-boilerplate.git"
+		"type": "git",
+		"url": "https://github.com/bilalyaver/nodejs-boilerplate.git"
 	},
 	"author": {
-	  "name": "Bilal Yaver",
-	  "email": "bilal@thejs.app",
-	  "url": "https://watchmantower.com"
+		"name": "Bilal Yaver",
+		"email": "bilal@thejs.app",
+		"url": "https://watchmantower.com"
 	},
 	"bugs": {
-	  "url": "https://github.com/bilalyaver/nodejs-boilerplate/issues",
-	  "email": "bilal@thejs.app"
+		"url": "https://github.com/bilalyaver/nodejs-boilerplate/issues",
+		"email": "bilal@thejs.app"
 	},
 	"keywords": [
-	  "nodejs-mongoose-crud",
-	  "cli",
-	  "nodejs cli",
-	  "nodejs-boilerplate",
-	  "nodejs-mongoose-boilerplate",
-	  "nodejs-mongoose-crud-boilerplate",
-	  "nodejs-mongoose-crud-cli",
-	  "nodejs-boilerplate-with-ui",
-	  "nodejs-cli-with-ui",
-	  "nodejs-mongoose-crud-cli-with-ui",
-	  "nodejs-mongoose-crud-boilerplate-with-nextjs-ui"
+		"nodejs-mongoose-crud",
+		"cli",
+		"nodejs cli",
+		"nodejs-boilerplate",
+		"nodejs-mongoose-boilerplate",
+		"nodejs-mongoose-crud-boilerplate",
+		"nodejs-mongoose-crud-cli",
+		"nodejs-boilerplate-with-ui",
+		"nodejs-cli-with-ui",
+		"nodejs-mongoose-crud-cli-with-ui",
+		"nodejs-mongoose-crud-boilerplate-with-nextjs-ui"
 	],
 	"files": [
-	  "index.js",
-	  "utils",
-	  "temp",
-	  "tasks",
-	  "helpers"
+		"index.js",
+		"utils",
+		"temp",
+		"tasks",
+		"helpers"
 	],
 	"scripts": {
-	  "format": "prettier --write \"./**/*.{js,json}\""
+		"format": "prettier --write \"./**/*.{js,json}\""
 	},
 	"dependencies": {
-	  "chalk": "^5.0.1",
-	  "cli-alerts": "^1.2.2",
-	  "cli-handle-error": "^4.4.0",
-	  "cli-handle-unhandled": "^1.1.1",
-	  "cli-meow-help": "^3.1.0",
-	  "cli-welcome": "^2.2.2",
-	  "inquirer": "^9.1.1",
-	  "listr": "^0.14.3",
-	  "meow": "^9.0.0",
-	  "open": "^10.1.0",
-	  "ora": "^8.0.1",
-	  "path": "^0.12.7"
+		"chalk": "^5.0.1",
+		"cli-alerts": "^1.2.2",
+		"cli-handle-error": "^4.4.0",
+		"cli-handle-unhandled": "^1.1.1",
+		"cli-meow-help": "^3.1.0",
+		"cli-welcome": "^2.2.2",
+		"inquirer": "^9.1.1",
+		"listr": "^0.14.3",
+		"meow": "^9.0.0",
+		"open": "^10.1.0",
+		"ora": "^8.0.1",
+		"path": "^0.12.7"
 	},
 	"devDependencies": {
-	  "prettier": "^2.7.1"
+		"prettier": "^2.7.1"
 	},
 	"publishConfig": {
-	  "registry": "https://npm.pkg.github.com/"
+		"registry": "https://npm.pkg.github.com/"
 	}
-  }
+}
