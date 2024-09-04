@@ -1,5 +1,5 @@
 {
-	"name": "@bilalyaver/yvr-cms",
+	"name": "yvr-cms",
 	"description": "A headless CMS boilerplate with Node.js, Mongoose, Nextjs and CLI",
 	"version": "0.1.0",
 	"license": "MIT",
