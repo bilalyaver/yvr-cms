@@ -22,9 +22,6 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
-        run: npm run build # Eğer özel bir build komutun yoksa bunu kaldırabilirsin
-
       - name: Publish to npm
         run: npm publish
         env:
