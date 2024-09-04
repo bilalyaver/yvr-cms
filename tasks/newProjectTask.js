@@ -125,20 +125,6 @@ const newProjectTask = (questions) => {
             }
         },
         {
-            title: "src folder created",
-            skip: (ctx) => {
-                if (ctx.packagePath) {
-                    return "src folder already exists"
-                }
-            },
-            task: (ctx) => {
-                schemas.forEach(element => {
-                    const schemaPath = path.join(process.cwd(), element.path)
-                    fs.writeFileSync(schemaPath, element.content);
-                } );
-            }
-        },
-        {
             title: "env file created",
             skip: (ctx) => {
                 if (ctx.packagePath) {
