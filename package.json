@@ -1,7 +1,7 @@
 {
 	"name": "@bilalyaver/yvr-headless-cms",
 	"description": "A headless CMS boilerplate with Node.js, Mongoose, Nextjs and CLI",
-	"version": "0.0.5",
+	"version": "0.0.6",
 	"license": "MIT",
 	"homepage": "https://github.com/bilalyaver/nodejs-boilerplate#readme",
 	"bin": {
