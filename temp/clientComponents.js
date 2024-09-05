@@ -600,8 +600,8 @@ import { api } from "yvr-core/client";
 const apiBaseUrl = process.env.API_BASE_URL;
 
 export default function Login() {
-    const [email, setEmail] = useState("bilal@thejs.app");
-    const [password, setPassword] = useState("123456");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
 
     const router = useRouter();
@@ -697,9 +697,9 @@ import { api } from "yvr-core/client";
 const apiBaseUrl = process.env.API_BASE_URL;
 
 export default function Register() {
-    const [name, setName] = useState("Bilal Yaver");
-    const [email, setEmail] = useState("bilal@thejs.app");
-    const [password, setPassword] = useState("123456");
+    const [name, setName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
     const router = useRouter();
 
