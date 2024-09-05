@@ -1,6 +1,6 @@
-# Installation
+# yvr-cms Documentation
 
-To install yvr-cms, use the following commands:
+Welcome to the yvr-cms documentation site!
 
-```bash
-npx yvr-cms -p
+- [Installation](installation.md)
+- [Usage](usage.md)
