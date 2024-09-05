@@ -18,7 +18,7 @@ Here're some of the project's best features:
 
 *   Dynamic schema and collection management
 *   Dynamic schema and collection management
-*   JWT-based user authentication and authorization
+*   JWT-based user authentication and authorization (Active is not)
 *   Flexible database management with MongoDB support
 *   Easily extensible and adaptable structure
 *   With this project you can build your own content management system to provide content to your frontend applications with the flexibility you need. YVR-CMS is optimized for both small and large projects.
@@ -63,6 +63,3 @@ Technologies used in the project:
 *   nextjs
 *   tailwindcss
 *   mongodb
-
-- [Usage Guide](./usage.md)
-- [Installation Guide](./installation.md)
