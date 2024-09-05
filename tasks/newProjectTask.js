@@ -143,6 +143,21 @@ const newProjectTask = (questions) => {
                 installComponents();
             }
         },
+        {
+            title: "favicon.ico file copied",
+            skip: (ctx) => {
+                const faviconDestPath = path.join(process.cwd(), 'client/public', 'favicon.ico');
+                if (fs.existsSync(faviconDestPath)) {
+                    return "favicon.ico already exists";
+                }
+            },
+            task: (ctx) => {
+                const faviconSourcePath = path.join(__dirname, '../temp/favicon.ico', 'favicon.ico'); // Favicon'un olduğu yer
+                const faviconDestPath = path.join(process.cwd(), 'client/public', 'favicon.ico'); // Hedef dizin
+
+                fs.copyFileSync(faviconSourcePath, faviconDestPath);
+            }
+        },
     ])
 
     tasks.run()

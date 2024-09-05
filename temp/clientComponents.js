@@ -2049,10 +2049,10 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog"
 import { Progress } from "@/components/ui/progress"
-import { Trash2, Search, Grid, List, Folder, ArrowLeft, Plus, Check } from 'lucide-react'
+import { Trash2, Search, Grid, List, Folder, ArrowLeft, Plus } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
 import { api, mediaManager } from 'yvr-core/client'
-import MediaManagementImageEdit from './MediaManagementImageEdit'
+import MediaButtons from './MediaButtons'
 
 const imagePath = process.env.IMAGE_PATH
 
@@ -2358,18 +2358,7 @@ export default function MediaManagementPanel({ openType, setSelectedImage, selec
                                     <p className="text-sm text-gray-500">{item.type}</p>
                                 </div>
                             </div>
-                            <div className="flex space-x-2 mt-2">
-                                <MediaManagementImageEdit item={item} />
-                                <Button variant="outline" size="sm" onClick={() => handleDelete(item._id, false)}>
-                                    <Trash2 className="w-4 h-4" />
-                                    <span className="sr-only">Dosyayı sil</span>
-                                </Button>
-                                <div className='flex items-center justify-end w-full'>
-                                    {selectedImage === item._id && <span className="text-primary">
-                                        <Check color='green' className="w-4 h-4" />
-                                    </span>}
-                                </div>
-                            </div>
+                            <MediaButtons item={item} getItems={getItems} handleDelete={handleDelete} selectedImage={selectedImage} />
                         </CardContent>
                     </Card>
                 ))}
@@ -2385,28 +2374,47 @@ export default function MediaManagementPanel({ openType, setSelectedImage, selec
 import { Button } from "@/components/ui/button"
 import { Crop } from "lucide-react";
 import { useState } from "react";
+import { mediaManager } from 'yvr-core/client'
 const imagePath = process.env.IMAGE_PATH
 
-//import ImageEditor from "@/components/imageEditor/ImageEditor";
 import ImageEditor from "yvr-image-editor";
+import { toast } from "@/hooks/use-toast";
 
 
-const MediaManagementImageEdit = ({ item }) => {
-    const [localFileUrl, setLocalFileUrl] = useState(null);
-
-
+const MediaManagementImageEdit = ({ item, getItems }) => {
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [dimensions, setDimensions] = useState({});
+    
 
     const updateMedia = async (file) => {
-        console.log('file', file)
-        setLocalFileUrl(URL.createObjectURL(file));
+        const result = await mediaManager.updateFile(item._id, {
+            file,
+            dimensions
+        });
+
+        if (result) {
+            toast({
+                description: 'Image updated successfully',
+                variant: "success"
+            })
+            getItems();
+            setIsOpenModal(false);
+        } else {
+            toast({
+                description: 'Error updating image',
+                variant: "destructive"
+            })
+        }
     };
 
     return (
         <div>
-            <img src={localFileUrl} alt={item.name} className="" />
-            <Dialog>
+            <Dialog
+                open={isOpenModal}
+                onOpenChange={setIsOpenModal}
+            >
                 <DialogTrigger asChild>
-                    <Button variant="outline" size="sm">
+                    <Button variant="outline" title="Crop Image" size="sm">
                         <Crop className="w-4 h-4" />
                         <span className="sr-only">
                             Edit Image
@@ -2423,7 +2431,7 @@ const MediaManagementImageEdit = ({ item }) => {
                         <ImageEditor
                             currentImage={\`\${imagePath}/\${item.name}\`}
                             getFile={(file) => updateMedia(file)}
-                            getSizes={(sizes) => console.log('sizes', sizes)}
+                            getSizes={(sizes) => setDimensions(sizes)}
                         />
                     </div>
                 </DialogContent>
@@ -2433,6 +2441,156 @@ const MediaManagementImageEdit = ({ item }) => {
 }
 
 export default MediaManagementImageEdit;`
+    },
+    {
+        path: 'client/components/contentManagement/mediaManagementPanel/MediaButtons.js',
+        content: `import { Trash2, Check, GalleryThumbnails, Save, Tag } from 'lucide-react'
+import MediaManagementImageEdit from './MediaManagementImageEdit';
+import { Button } from '@/components/ui/button';
+import { useState, useEffect } from 'react';
+import { Input } from '@/components/ui/input';
+import { api } from 'yvr-core/client';
+import { Label } from '@/components/ui/label';
+
+const MediaButtons = ({
+    item,
+    getItems,
+    handleDelete,
+    selectedImage
+}) => {
+    const [isOpenAltText, setIsOpenAltText] = useState(false);
+    const [altText, setAltText] = useState("");
+    const [isOpenTags, setIsOpenTags] = useState(false);
+    const [tags, setTags] = useState([]);
+
+
+    useEffect(() => {
+        if (item.alt) {
+            setAltText(item.alt);
+        }
+
+        if (item.tags) {
+            setTags(item.tags.join(','));
+        }
+    }, [item]);
+
+    const handleAltText = async (id, alt) => {
+        const result = await api.put(\`/media:update?id=\${id}\`, {
+            alt
+        });
+        if (result) {
+            setIsOpenAltText(false);
+        }
+    };
+
+    const handleTags = async (id, tags) => {
+        const result = await api.put(\`/media:update?id=\${id}\`, {
+            tags
+        });
+        if (result) {
+            setIsOpenTags(false);
+        }
+    }
+
+    
+    
+
+
+    return (
+        <div>
+            <div className="flex space-x-2 mt-2">
+                <MediaManagementImageEdit item={item} getItems={getItems} />
+                <Button variant="outline" title="Add Alternative Text" size="sm" onClick={(e) => {
+                    e.stopPropagation();
+                    setIsOpenAltText(!isOpenAltText);
+                    setIsOpenTags(false);
+                }}>
+                    <GalleryThumbnails className="w-4 h-4" />
+                    <span className="sr-only">
+                        Add Alternative Text
+                    </span>
+                </Button>
+                <Button variant="outline" title="Tags" size="sm" onClick={(e) => {
+                    e.stopPropagation();
+                    setIsOpenTags(!isOpenTags);
+                    setIsOpenAltText(false);
+                }}>
+                    <Tag className="w-4 h-4" />
+                    <span className="sr-only">
+                        Tags
+                    </span>
+                </Button>
+                <Button variant="outline" className="hover:bg-red-600 hover:border-transparent" title="Delete Media" size="sm" 
+                onClick={(e) => {
+                    e.stopPropagation();
+                    handleDelete(item._id, false)
+                }}>
+                    <Trash2 className="w-4 h-4" />
+                    <span className="sr-only">Delete Media</span>
+                </Button>
+                <div className='flex items-center justify-end w-full'>
+                    {selectedImage === item._id && <span className="text-primary">
+                        <Check color='green' className="w-4 h-4" />
+                    </span>}
+                </div>
+            </div>
+            <div className='mt-3'>
+                {isOpenAltText && (
+                    <div className="flex items-start space-x-2">
+                        <div className='w-full'>
+                        <Input
+                            type="text"
+                            value={altText}
+                            onChange={(e) => setAltText(e.target.value)}
+                            className="w-full"
+                            placeholder="Enter Alternative Text"
+                        />
+                        <Label className="text-xs">Enter alternative text for the image</Label>
+                        </div>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                                handleAltText(item._id, altText);
+                            }}
+                        >
+                            <Save className="w-4 h-4" />
+                        </Button>
+                    </div>
+                )}
+            </div>
+            <div className='mt-3'>
+                {isOpenTags && (
+                    <div className="flex items-start space-x-2">
+                        <div className='w-full'>
+                            <Input
+                                type="text"
+                                value={tags}
+                                onChange={(e) => {
+                                    setTags(e.target.value.split(','));
+                                }}
+                                className="w-full"
+                                placeholder="Tags"
+                            />
+                            <Label className="text-xs">Separate tags with a comma</Label>
+                        </div>
+                        <Button
+                            variant="outline"
+                            size="sm"
+                            onClick={() => {
+                                handleTags(item._id, tags);
+                            }}
+                        >
+                            <Save className="w-4 h-4" />
+                        </Button>
+                    </div>
+                )}
+            </div>
+        </div>
+    );
+}
+
+export default MediaButtons;`
     }
 ];
 

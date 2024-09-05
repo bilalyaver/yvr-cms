@@ -324,13 +324,14 @@ export default nextConfig;`
   },
   {
     path: 'client/pages/_document.js',
-    content: `
-        import { Html, Head, Main, NextScript } from 'next/document'
+    content: `import { Html, Head, Main, NextScript } from 'next/document'
 
 export default function Document() {
     return (
         <Html lang="en">
-            <Head />
+            <Head >
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <body>
                 <script src="https://cdn.tailwindcss.com"></script>
                 <Main />
@@ -338,8 +339,7 @@ export default function Document() {
             </body>
         </Html>
     )
-}
-        `
+}`
   },
   {
     path: 'client/c/lib/utils.js',

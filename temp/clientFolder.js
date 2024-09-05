@@ -1,5 +1,6 @@
 const clientFolder = [
     'client',
+    'client/public',
     'client/pages',
     'client/pages/collections',
     'client/pages/collections/[collectionName]',
