@@ -1332,6 +1332,7 @@ const TypeIcon = ({ type, size = 24 }) => {
         'ObjectId': <Key size={size} />,
         'Media': <Image size={size} />,
         'Slug': <Link size={size} />,
+        'RichText': <BookType size={size} />
     }
 
     return (
