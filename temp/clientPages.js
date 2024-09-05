@@ -93,42 +93,6 @@ export default index;
 `
     },
     {
-        path: 'client/pages/collections/[collectionName]/add-field.js',
-        content: `import AddField from "@/components/collection/AddField";
-import CollectionLayout from "@/layout/CollectionLayout";
-import DashboardLayout from "@/layout/DashboardLayout";
-
-const index = () => {
-    return (
-        <DashboardLayout>
-            <CollectionLayout>
-                <AddField componentType="add" />
-            </CollectionLayout>
-        </DashboardLayout>
-    );
-}
-
-export default index;`
-    },
-    {
-        path: 'client/pages/collections/[collectionName]/edit-field.js',
-        content: `import AddField from "@/components/collection/AddField";
-import CollectionLayout from "@/layout/CollectionLayout";
-import DashboardLayout from "@/layout/DashboardLayout";
-
-const index = () => {
-    return (
-        <DashboardLayout>
-            <CollectionLayout>
-            <AddField componentType="edit" />
-            </CollectionLayout>
-        </DashboardLayout>
-    );
-}
-
-export default index;`
-    },
-    {
         path: 'client/pages/login.js',
         content: `import Login from "components/Login";
 

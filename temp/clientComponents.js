@@ -1323,7 +1323,7 @@ export default NewContent;`
     },
     {
         path: 'client/components/contentManagement/TypeIcon.js',
-        content: `import { Type, Hash, ToggleLeft, Calendar, Key, Image, Link } from 'lucide-react'
+        content: `import { Type, Hash, ToggleLeft, Calendar, Key, Image, Link, BookType } from 'lucide-react'
 
 const TypeIcon = ({ type, size = 24 }) => {
 
