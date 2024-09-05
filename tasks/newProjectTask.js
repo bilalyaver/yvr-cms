@@ -6,14 +6,15 @@ import appGenerator from "../temp/appGenerator.js"
 import packageInstaller from "../utils/packageInstaller.js"
 import clientPages from "../temp/clientPages.js"
 import installComponents from "../utils/installComponents.js"
-import schemaGenerator from "../temp/schemaGenerator.js"
 import envGenerator from "../temp/envGenerator.js"
 import clientFolder from "../temp/clientFolder.js"
 import clientFiles from "../temp/clientFiles.js"
 import clientLayouts from "../temp/clientLayouts.js"
 import srcFolder from "../temp/srcFolders.js"
 import clientComponents from "../temp/clientComponents.js"
-import schemas from "../temp/schemaGenerator.js"
+import { fileURLToPath } from 'url'; // ESM'de __dirname kullanımı
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const newProjectTask = (questions) => {
     const tasks = new Listr([
