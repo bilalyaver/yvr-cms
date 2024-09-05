@@ -2,5 +2,5 @@
 
 Welcome to the yvr-cms documentation site!
 
-- [Installation](installation.md)
-- [Usage](usage.md)
+- [Usage Guide](./usage.md)
+- [Installation Guide](./installation.md)

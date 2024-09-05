@@ -1,3 +1,8 @@
+---
+layout: default
+title: Usage Guide
+---
+
 # Usage: yvr-cms
 
 **yvr-cms** (Your Versatile CMS), Node.js, Express.js ve MongoDB kullanarak baştan sona özelleştirilebilir bir içerik yönetim sistemi (CMS) oluşturmanızı sağlar. Aşağıda, projeyi nasıl kullanacağınız, koleksiyonlarınızı nasıl yöneteceğiniz ve yvr-cms'in sunduğu özellikleri nasıl kullanacağınız anlatılmaktadır.
