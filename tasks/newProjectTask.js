@@ -139,7 +139,7 @@ const newProjectTask = (questions) => {
         {
             title: "required packages installing",
             task: (ctx) => {
-                packageInstaller("express, react-dropzone, dotenv, cors, mongoose, bcrypt, slugify, jsonwebtoken,  next, @tanstack/react-table, cookies-next, cross-env, axios, class-variance-authority, clsx, lucide-react, tailwind-merge, tailwindcss-animate, tailwindcss --save-dev, postcss --save-dev, yvr-core");
+                packageInstaller("express, react-dropzone, dotenv, cors, @ckeditor/ckeditor5-react, yvr-image-editor, mongoose, bcrypt, slugify, jsonwebtoken,  next, @tanstack/react-table, cookies-next, cross-env, axios, class-variance-authority, clsx, lucide-react, tailwind-merge, tailwindcss-animate, tailwindcss --save-dev, postcss --save-dev, yvr-core");
                 installComponents();
             }
         },

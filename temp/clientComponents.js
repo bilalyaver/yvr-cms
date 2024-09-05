@@ -153,7 +153,7 @@ import {
     DialogTitle,
     DialogTrigger,
 } from "@/components/ui/dialog"
-import { Type, Hash, ToggleLeft, Calendar, Key, Image, Link, EditIcon, BookType } from 'lucide-react'
+import { EditIcon } from 'lucide-react'
 import { Select, SelectTrigger, SelectValue, SelectContent, SelectItem } from "@/components/ui/select"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -162,16 +162,17 @@ import { Checkbox } from "@/components/ui/checkbox"
 import { schemaManager } from "yvr-core/client";
 import { useRouter } from "next/router"
 import { toast } from "@/hooks/use-toast";
+import TypeIcon from '../contentManagement/TypeIcon'
 
 const contentTypes = [
-    { id: 'String', name: 'String', icon: Type },
-    { id: 'Number', name: 'Number', icon: Hash },
-    { id: 'Boolean', name: 'Boolean', icon: ToggleLeft },
-    { id: 'Date', name: 'Date', icon: Calendar },
-    { id: 'ObjectId', name: 'ObjectId', icon: Key },
-    { id: 'Media', name: 'Media', icon: Image },
-    { id: 'Slug', name: 'Slug', icon: Link },
-    { id: 'RichText', name: 'Rich Text Editor', icon: BookType },
+    { id: 'String', name: 'String' },
+    { id: 'Number', name: 'Number' },
+    { id: 'Boolean', name: 'Boolean' },
+    { id: 'Date', name: 'Date' },
+    { id: 'ObjectId', name: 'ObjectId' },
+    { id: 'Media', name: 'Media' },
+    { id: 'Slug', name: 'Slug' },
+    { id: 'RichText', name: 'Rich Text Editor' },
 ]
 
 export default function ContentTypeBuilder({ editFieldName }) {
@@ -362,7 +363,6 @@ export default function ContentTypeBuilder({ editFieldName }) {
                         <h2 className="text-lg font-semibold">Select Content Type</h2>
                         <div className="grid grid-cols-2 gap-4">
                             {contentTypes.map((type) => {
-                                const Icon = type.icon
                                 return (
                                     <Button
                                         key={type.id}
@@ -370,7 +370,7 @@ export default function ContentTypeBuilder({ editFieldName }) {
                                         className="h-auto py-4 px-4 flex flex-col items-center justify-center"
                                         onClick={() => handleTypeSelect(type.id)}
                                     >
-                                        <Icon className="w-6 h-6 mb-2" />
+                                        <TypeIcon type={type.id} />
                                         <span>{type.name}</span>
                                     </Button>
                                 )
@@ -1017,6 +1017,7 @@ export default function ContentManagementTable({ list, getList }) {
 
             fields = fields.filter(field => field.name !== 'password'); // Şifre alanını çıkartıyoruz
             fields = fields.filter(field => field.type !== 'Media'); // Oluşturulma tarihini çıkartıyoruz
+            fields = fields.filter(field => field.type !== 'RichText'); // Oluşturulma tarihini çıkartıyoruz
 
             console.log('mediaTypes', mediaTypes)
 
@@ -1034,7 +1035,8 @@ export default function ContentManagementTable({ list, getList }) {
                     cell: ({ row }) => {
                         return (<div>
                             {row?.getValue(mediaTypes[0].name) && <img 
-                            onClick={() => { 
+                            onClick={(e) => { 
+                                e.stopPropagation();
                                 window.open(\`\${imagePath}/\${row?.getValue(mediaTypes[0].name)?.name}\`, '_blank');
                             }}
                             src={\`\${imagePath}/\${row?.getValue(mediaTypes[0].name)?.name}\`} alt="Selected" className="w-8 h-8 object-cover rounded-full cursor-pointer" />}
@@ -1043,6 +1045,7 @@ export default function ContentManagementTable({ list, getList }) {
                 } : null,
                 columnsDefault[columnsDefault.length - 1]
             ];
+
 
             // ilk üçünün seçili olmasını sağla
             tempColumns = tempColumns.map((column, index) => {
@@ -1351,6 +1354,11 @@ import ObjectId from "./ObjectId";
 import MediaType from "./MediaType";
 import SlugType from "./SlugType";
 import BooleanType from "./BooleanType";
+import dynamic from 'next/dynamic';
+const RichTextType = dynamic(
+    () => import('./RichTextType'),
+    { ssr: false }
+);
 
 export default function ContentTypes({
     schema,
@@ -1383,6 +1391,10 @@ export default function ContentTypes({
                     return <MediaType key={index} field={field} formData={formData} handleChange={handleChange} />
                 }
 
+                if(field.type == "RichText") {
+                    return <RichTextType key={index} field={field} formData={formData} handleChange={handleChange} />
+                }
+
 
                 return null; // Eğer tanımlı olmayan bir type varsa
             })}
@@ -1412,7 +1424,7 @@ const StringType = ({
                             name={field.name}
                             type="text"
                             required={field.required}
-                            value={formData[field.name]}
+                            value={formData[field?.name] || ""}
                             onChange={handleChange}
                             placeholder={\`Enter \${field.name}\`}
                         />
@@ -1506,12 +1518,14 @@ import {
     Dialog,
     DialogContent,
     DialogTrigger,
+    DialogTitle
 } from "@/components/ui/dialog"
 import MediaManagementPanel from "../mediaManagementPanel/MediaManagementPanel";
 import { Label } from "@/components/ui/label";
 import { useState, useEffect } from 'react';
 import { ImageIcon } from 'lucide-react';
 import { api } from 'yvr-core/client';
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 
 const imagePath = process.env.IMAGE_PATH
 
@@ -1522,7 +1536,7 @@ const MediaType = ({
 }) => {
     const [selectedImage, setSelectedImage] = useState(null)
     const [imageUrl, setImageUrl] = useState(null);
-    
+    const [isOpenModal, setIsOpenModal] = useState(false);
 
     const getSelectedImage = async () => {
         const result = await api.get(\`/media:get?filter.id=\${formData[field.name]}\`);
@@ -1533,7 +1547,7 @@ const MediaType = ({
     useEffect(() => {
         formData[field.name] &&
             getSelectedImage();
-    }, [formData[field.name]],  field.name, selectedImage);
+    }, [formData[field.name]], field.name, selectedImage);
 
 
     console.log('selectedImage', selectedImage)
@@ -1552,7 +1566,7 @@ const MediaType = ({
     return (
         <div className="grid gap-2">
             <Label htmlFor={field.name}>{field.name.charAt(0).toUpperCase() + field.name.slice(1)}</Label>
-            <Dialog className="block">
+            <Dialog className="block" open={isOpenModal} onOpenChange={setIsOpenModal}>
                 <DialogTrigger asChild className="text-muted-foreground transition-colors hover:text-foreground w-40">
                     <div className="w-full max-w-md">
                         <div
@@ -1569,11 +1583,15 @@ const MediaType = ({
                         </div>
                     </div>
                 </DialogTrigger>
-                <DialogContent className="min-w-[80vw] h-3/4">
+                <DialogContent className="min-w-[90vw] min-h-[90vh] overflow-scroll">
+                    <VisuallyHidden.Root>
+                        <DialogTitle>Media Management</DialogTitle >
+                    </VisuallyHidden.Root>
                     <MediaManagementPanel
                         openType="select"
                         setSelectedImage={setSelectedImage}
                         selectedImage={selectedImage}
+                        setIsOpenModal={setIsOpenModal}
                     />
                 </DialogContent>
             </Dialog>
@@ -1595,11 +1613,6 @@ const SlugType = ({
     formData,
     handleChange,
 }) => {
-
-    console.log('field', field)
-
-    console.log('formData', formData)
-
     const slugSource = formData[field.slugSource] || '';
 
     useEffect(() => {
@@ -1663,14 +1676,351 @@ const BooleanType = ({
 export default BooleanType;`
     },
     {
+        path: 'client/components/contentManagement/contentTypes/RichTextType.js',
+        content: `import { Label } from "@/components/ui/label";
+import { useState, useEffect, useRef } from 'react';
+import { CKEditor } from '@ckeditor/ckeditor5-react';
+
+import {
+    ClassicEditor,
+    AccessibilityHelp,
+    Alignment,
+    Autoformat,
+    AutoImage,
+    AutoLink,
+    Autosave,
+    BlockQuote,
+    Bold,
+    CloudServices,
+    Code,
+    CodeBlock,
+    Essentials,
+    FindAndReplace,
+    FontBackgroundColor,
+    FontColor,
+    FontFamily,
+    FontSize,
+    GeneralHtmlSupport,
+    Heading,
+    HorizontalLine,
+    HtmlComment,
+    HtmlEmbed,
+    ImageBlock,
+    ImageCaption,
+    ImageInline,
+    ImageInsertViaUrl,
+    ImageResize,
+    ImageStyle,
+    ImageTextAlternative,
+    ImageToolbar,
+    ImageUpload,
+    Italic,
+    Link,
+    LinkImage,
+    Paragraph,
+    SelectAll,
+    ShowBlocks,
+    SourceEditing,
+    SpecialCharacters,
+    SpecialCharactersArrows,
+    SpecialCharactersCurrency,
+    SpecialCharactersEssentials,
+    SpecialCharactersLatin,
+    SpecialCharactersMathematical,
+    SpecialCharactersText,
+    Strikethrough,
+    Subscript,
+    Superscript,
+    Table,
+    TableCaption,
+    TableCellProperties,
+    TableColumnResize,
+    TableProperties,
+    TableToolbar,
+    TextTransformation,
+    Underline,
+    Undo
+} from 'ckeditor5';
+
+import 'ckeditor5/ckeditor5.css';
+
+const RichTextType = ({ field, formData, handleChange }) => {
+    const editorContainerRef = useRef(null);
+    const editorRef = useRef(null);
+    const [isLayoutReady, setIsLayoutReady] = useState(false);
+
+    useEffect(() => {
+        setIsLayoutReady(true);
+        return () => setIsLayoutReady(false);
+    }, []);
+
+    const editorConfig = {
+        extraPlugins: [CustomUploadAdapterPlugin],
+        toolbar: {
+            items: [
+                'undo',
+                'redo',
+                '|',
+                'showBlocks',
+                'findAndReplace',
+                'selectAll',
+                '|',
+                'heading',
+                '|',
+                'fontSize',
+                'fontFamily',
+                'fontColor',
+                'fontBackgroundColor',
+                '|',
+                'bold',
+                'italic',
+                'underline',
+                'strikethrough',
+                'subscript',
+                'superscript',
+                '|',
+                'specialCharacters',
+                'horizontalLine',
+                'link',
+                'insertTable',
+                'blockQuote',
+                '|',
+                'alignment',
+                '|',
+                'imageUpload',
+                'accessibilityHelp'
+            ],
+            shouldNotGroupWhenFull: true
+        },
+        plugins: [
+            AccessibilityHelp,
+            Alignment,
+            Autoformat,
+            AutoImage,
+            AutoLink,
+            Autosave,
+            BlockQuote,
+            Bold,
+            CloudServices,
+            Code,
+            CodeBlock,
+            Essentials,
+            FindAndReplace,
+            FontBackgroundColor,
+            FontColor,
+            FontFamily,
+            FontSize,
+            GeneralHtmlSupport,
+            Heading,
+            HorizontalLine,
+            HtmlComment,
+            HtmlEmbed,
+            ImageBlock,
+            ImageCaption,
+            ImageInline,
+            ImageInsertViaUrl,
+            ImageResize,
+            ImageStyle,
+            ImageTextAlternative,
+            ImageToolbar,
+            ImageUpload,
+            Italic,
+            Link,
+            LinkImage,
+            Paragraph,
+            SelectAll,
+            ShowBlocks,
+            SourceEditing,
+            SpecialCharacters,
+            SpecialCharactersArrows,
+            SpecialCharactersCurrency,
+            SpecialCharactersEssentials,
+            SpecialCharactersLatin,
+            SpecialCharactersMathematical,
+            SpecialCharactersText,
+            Strikethrough,
+            Subscript,
+            Superscript,
+            Table,
+            TableCaption,
+            TableCellProperties,
+            TableColumnResize,
+            TableProperties,
+            TableToolbar,
+            TextTransformation,
+            Underline,
+            Undo
+        ],
+        fontFamily: {
+            supportAllValues: true
+        },
+        fontSize: {
+            options: [10, 12, 14, 'default', 18, 20, 22],
+            supportAllValues: true
+        },
+        heading: {
+            options: [
+                {
+                    model: 'paragraph',
+                    title: 'Paragraph',
+                    class: 'ck-heading_paragraph'
+                },
+                {
+                    model: 'heading1',
+                    view: 'h1',
+                    title: 'Heading 1',
+                    class: 'ck-heading_heading1'
+                },
+                {
+                    model: 'heading2',
+                    view: 'h2',
+                    title: 'Heading 2',
+                    class: 'ck-heading_heading2'
+                },
+                {
+                    model: 'heading3',
+                    view: 'h3',
+                    title: 'Heading 3',
+                    class: 'ck-heading_heading3'
+                },
+                {
+                    model: 'heading4',
+                    view: 'h4',
+                    title: 'Heading 4',
+                    class: 'ck-heading_heading4'
+                },
+                {
+                    model: 'heading5',
+                    view: 'h5',
+                    title: 'Heading 5',
+                    class: 'ck-heading_heading5'
+                },
+                {
+                    model: 'heading6',
+                    view: 'h6',
+                    title: 'Heading 6',
+                    class: 'ck-heading_heading6'
+                }
+            ]
+        },
+        htmlSupport: {
+            allow: [
+                {
+                    name: /^.*$/,
+                    styles: true,
+                    attributes: true,
+                    classes: true
+                }
+            ]
+        },
+        image: {
+            styles: ['alignLeft', 'alignCenter', 'alignRight', 'alignBlock', 'alignInline', 'maxHeight'],
+            toolbar: ['toggleImageCaption', 'imageTextAlternative', 'imageStyle:alignLeft', 'imageStyle:alignCenter', 'imageStyle:alignRight'],
+        },
+        link: {
+            addTargetToExternalLinks: true,
+            defaultProtocol: 'https://',
+            decorators: {
+                toggleDownloadable: {
+                    mode: 'manual',
+                    label: 'Downloadable',
+                    attributes: {
+                        download: 'file'
+                    }
+                }
+            }
+        },
+        placeholder: 'Type or paste your content here!',
+        table: {
+            contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
+        }
+    };
+    return (
+        <div className="grid gap-2">
+            <Label htmlFor={field.name}>{field.name.charAt(0).toUpperCase() + field.name.slice(1)}</Label>
+            <div className='h-full'>
+                <div className="main-container text-black">
+                    <div className="editor-container editor-container_classic-editor" ref={editorContainerRef}>
+                        <div className="editor-container__editor">
+                            <div ref={editorRef}>{isLayoutReady &&
+                                <CKEditor
+                                    data={formData[field.name]}
+                                    onChange={(event, editor) => {
+                                        const data = editor?.getData();
+                                        handleChange({
+                                            target: {
+                                                name: field.name,
+                                                value: data
+                                            }
+                                        });
+                                    }}
+                                    onReady={(editor) => {
+                                        editor?.editing?.view?.change((writer) => {
+                                            writer.setStyle(
+                                                "height",
+                                                "500px",
+                                                editor?.editing?.view?.document?.getRoot()
+                                            );
+                                        });
+                                    }}
+                                    editor={ClassicEditor} config={editorConfig} />}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
+
+
+// Custom upload adapter plugin
+function CustomUploadAdapterPlugin(editor) {
+    editor.plugins.get('FileRepository').createUploadAdapter = (loader) => {
+        return new CustomUploadAdapter(loader);
+    };
+}
+
+class CustomUploadAdapter {
+    constructor(loader) {
+        this.loader = loader;
+    }
+
+    // Starts the upload process.
+    upload() {
+        return this.loader.file
+            .then(file => new Promise((resolve, reject) => {
+                const reader = new FileReader();
+                reader.onload = () => {
+                    resolve({ default: reader.result });
+                };
+                reader.onerror = error => {
+                    reject(error);
+                };
+                reader.readAsDataURL(file);
+            }));
+    }
+
+    // Aborts the upload process.
+    abort() {
+        if (this.xhr) {
+            this.xhr.abort();
+        }
+    }
+}
+
+export default RichTextType;`
+    },
+    {
         path: 'client/components/contentManagement/mediaManagementPanel/MediaManagementMain.js',
         content: `import { Button } from "@/components/ui/button"
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
+  DialogTitle
 } from "@/components/ui/dialog"
 import MediaManagementPanel from "./MediaManagementPanel"
+import * as VisuallyHidden from '@radix-ui/react-visually-hidden';
 
 export default function MediaManagementMain() {
   return (
@@ -1679,6 +2029,9 @@ export default function MediaManagementMain() {
         <Button className="text-muted-foreground transition-colors hover:text-foreground w-40">Media Management</Button>
       </DialogTrigger>
       <DialogContent className="min-w-[90vw] min-h-[90vh] overflow-scroll">
+        <VisuallyHidden.Root>
+          <DialogTitle>Media Management</DialogTitle >
+        </VisuallyHidden.Root>
         <MediaManagementPanel />
       </DialogContent>
     </Dialog>
@@ -1696,13 +2049,14 @@ import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger, DialogFooter } from "@/components/ui/dialog"
 import { Progress } from "@/components/ui/progress"
-import { Edit, Trash2, Search, Grid, List, Folder, ArrowLeft, Plus, Check } from 'lucide-react'
+import { Trash2, Search, Grid, List, Folder, ArrowLeft, Plus, Check } from 'lucide-react'
 import { toast } from '@/hooks/use-toast'
 import { api, mediaManager } from 'yvr-core/client'
+import MediaManagementImageEdit from './MediaManagementImageEdit'
 
 const imagePath = process.env.IMAGE_PATH
 
-export default function MediaManagementPanel({ openType, setSelectedImage, selectedImage }) {
+export default function MediaManagementPanel({ openType, setSelectedImage, selectedImage, setIsOpenModal }) {
     const [folders, setFolders] = useState([])
     const [items, setItems] = useState([])
     const [currentFolder, setCurrentFolder] = useState(null);
@@ -1991,41 +2345,21 @@ export default function MediaManagementPanel({ openType, setSelectedImage, selec
                     \${openType === 'select' ? 'hover:shadow-2xl cursor-pointer hover:scale-110 transition-all duration-300' : ''}\`}
                         onClick={() => {
                             if (openType === 'select') {
-                                setSelectedImage(item?._id)
-                                setIsNewFolderModalOpen(false)
+                                setSelectedImage(item?._id);
+                                setIsOpenModal(false);
                             }
                         }}
                     >
                         <CardContent className={\`p-4 \${view === 'list' ? 'flex items-center justify-between w-full' : ''}\`}>
                             <div className={\`\${view === 'list' ? 'flex items-center' : ''}\`}>
-                                <img src={\`\${imagePath}/\${item?.name}\`} alt={item.name} className={\`mb-2 \${view === 'list' ? 'w-16 h-16 mr-4' : 'w-full h-32 object-cover'}\`} />
+                                <img src={\`\${imagePath}/\${item?.name}\`} alt={item.name} className={\`mb-2 rounded-md \${view === 'list' ? 'w-16 h-16 mr-4' : 'w-full h-32 object-cover'}\`} />
                                 <div>
                                     <h3 className="font-semibold">{item.name}</h3>
                                     <p className="text-sm text-gray-500">{item.type}</p>
                                 </div>
                             </div>
                             <div className="flex space-x-2 mt-2">
-                                <Dialog>
-                                    <DialogTrigger asChild>
-                                        <Button variant="outline" size="sm">
-                                            <Edit className="w-4 h-4" />
-                                            <span className="sr-only">Dosyayı düzenle</span>
-                                        </Button>
-                                    </DialogTrigger>
-                                    <DialogContent>
-                                        <DialogHeader>
-                                            <DialogTitle>Medya Düzenle</DialogTitle>
-                                        </DialogHeader>
-                                        <div className="grid gap-4 py-4">
-                                            <div className="grid grid-cols-4 items-center gap-4">
-                                                <Label htmlFor="name" className="text-right">
-                                                    Ad
-                                                </Label>
-                                                <Input id="name" value={item.name} className="col-span-3" />
-                                            </div>
-                                        </div>
-                                    </DialogContent>
-                                </Dialog>
+                                <MediaManagementImageEdit item={item} />
                                 <Button variant="outline" size="sm" onClick={() => handleDelete(item._id, false)}>
                                     <Trash2 className="w-4 h-4" />
                                     <span className="sr-only">Dosyayı sil</span>
@@ -2040,10 +2374,65 @@ export default function MediaManagementPanel({ openType, setSelectedImage, selec
                     </Card>
                 ))}
             </div>
-            
+
         </div>
     )
 }`
+    },
+    {
+        path: 'client/components/contentManagement/mediaManagementPanel/MediaManagementImageEdit.js',
+        content: `import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Button } from "@/components/ui/button"
+import { Crop } from "lucide-react";
+import { useState } from "react";
+const imagePath = process.env.IMAGE_PATH
+
+//import ImageEditor from "@/components/imageEditor/ImageEditor";
+import ImageEditor from "yvr-image-editor";
+
+
+const MediaManagementImageEdit = ({ item }) => {
+    const [localFileUrl, setLocalFileUrl] = useState(null);
+
+
+
+    const updateMedia = async (file) => {
+        console.log('file', file)
+        setLocalFileUrl(URL.createObjectURL(file));
+    };
+
+    return (
+        <div>
+            <img src={localFileUrl} alt={item.name} className="" />
+            <Dialog>
+                <DialogTrigger asChild>
+                    <Button variant="outline" size="sm">
+                        <Crop className="w-4 h-4" />
+                        <span className="sr-only">
+                            Edit Image
+                        </span>
+                    </Button>
+                </DialogTrigger>
+                <DialogContent className="min-w-[85vw] min-h-[85vh] overflow-scroll">
+                    <DialogHeader>
+                        <DialogTitle>
+                            Edit Image
+                        </DialogTitle>
+                    </DialogHeader>
+                    <div className="h-[85vh] w-[85vw]">
+                        <ImageEditor
+                            currentImage={\`\${imagePath}/\${item.name}\`}
+                            getFile={(file) => updateMedia(file)}
+                            getSizes={(sizes) => console.log('sizes', sizes)}
+                        />
+                    </div>
+                </DialogContent>
+            </Dialog>
+        </div>
+    );
+}
+
+export default MediaManagementImageEdit;`
     }
 ];
 

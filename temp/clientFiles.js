@@ -115,10 +115,52 @@ export async function middleware(request) {
     @apply bg-background text-foreground font-body;
   }
 
-  h1, h2, h3, h4, h5, h6 {
-    @apply font-heading;
-  }
-}`
+  
+}
+
+.ck-content h1 {
+  @apply text-3xl font-bold;
+}
+
+.ck-content h2 {
+  @apply text-2xl font-bold;
+}
+
+.ck-content h3 {
+  @apply text-xl font-bold;
+}
+
+.ck-content h4 {
+  @apply text-lg font-bold;
+}
+
+.ck-content h5 {
+  @apply text-base font-bold;
+}
+
+.ck-content h6 {
+  @apply text-sm font-bold;
+}
+
+.main-container {
+	font-family: 'Lato';
+	width: 100%;
+  height: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ck-content {
+	font-family: 'Lato';
+	line-height: 1.6;
+	word-break: break-word;
+}
+
+.editor-container_classic-editor .editor-container__editor {
+	width: 100%;
+  height: 800px;
+}
+`
   },
   {
     path: 'tailwind.config.mjs',

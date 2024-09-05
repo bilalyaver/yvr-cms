@@ -20,7 +20,7 @@ app.prepare().then(() => {
   const publicPath = path.join(__dirname, 'public');
   server.use(express.static(publicPath));
   server.use(express.urlencoded({ extended: true }));
-  server.use(express.json());
+  server.use(express.json({limit: '50mb'}));
 
   // CORS
   server.use(cors());
