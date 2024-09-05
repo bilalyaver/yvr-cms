@@ -153,7 +153,7 @@ const newProjectTask = (questions) => {
                 }
             },
             task: (ctx) => {
-                const faviconSourcePath = path.join(__dirname, '../temp/favicon.ico', 'favicon.ico'); // Favicon'un olduğu yer
+                const faviconSourcePath = path.join(__dirname, '../temp', 'favicon.ico'); // Favicon'un olduğu yer
                 const faviconDestPath = path.join(process.cwd(), 'client/public', 'favicon.ico'); // Hedef dizin
 
                 fs.copyFileSync(faviconSourcePath, faviconDestPath);
