@@ -2,32 +2,18 @@ import Listr from "listr"
 import path from "path"
 import fs from "fs"
 import packageGenerator from "../temp/packageGenerator.js"
-import appGenerator from "../temp/appGenerator.js"
 import packageInstaller from "../utils/packageInstaller.js"
-import clientPages from "../temp/clientPages.js"
 import installComponents from "../utils/installComponents.js"
-import envGenerator from "../temp/envGenerator.js"
-import clientFolder from "../temp/clientFolder.js"
-import clientFiles from "../temp/clientFiles.js"
-import clientLayouts from "../temp/clientLayouts.js"
-import srcFolder from "../temp/srcFolders.js"
-import clientComponents from "../temp/clientComponents.js"
 import { fileURLToPath } from 'url'; // ESM'de __dirname kullanımı
+import folders from "../temp/folders.js"
+import files from "../temp/files.js"
+import envGenerator from "../temp/envGenerator.js"
+import nextConfigGenerator from "../temp/nextConfigGenerator.js"
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const newProjectTask = (questions) => {
     const tasks = new Listr([
-        {
-            title: "Is there 'package.json' file",
-            task: (ctx) => {
-                const packagePath = path.join(process.cwd(), 'package.json')
-                if (fs.existsSync(packagePath)) {
-                    ctx.packagePath = true
-
-                }
-            }
-        },
         {
             title: "package.json file created",
             skip: (ctx) => {
@@ -40,101 +26,53 @@ const newProjectTask = (questions) => {
                 fs.writeFileSync(packagePath, JSON.stringify(packageGenerator(questions.name, questions.description, questions.author), null, 2));
             }
         },
-        {
-            title: "app.js file created",
-            skip: (ctx) => {
-                if (ctx.packagePath) {
-                    return "app.js file already exists"
-                }
-            },
-            task: (ctx) => {
-                const appPath = path.join(process.cwd(), 'app.js')
-                fs.writeFileSync(appPath, appGenerator());
+        // {
+        //     title: "app.js file created",
+        //     skip: (ctx) => {
+        //         if (ctx.packagePath) {
+        //             return "app.js file already exists"
+        //         }
+        //     },
+        //     task: (ctx) => {
+        //         const appPath = path.join(process.cwd(), 'app.js')
+        //         fs.writeFileSync(appPath, appGenerator());
 
-            }
-        },
+        //     }
+        // },
         {
-            title: "client folders created",
+            title: "folders created",
             skip: (ctx) => {
                 if (ctx.packagePath) {
                     return "folders already exists"
                 }
             },
             task: (ctx) => {
-                clientFolder.forEach(element => {
+                folders.forEach(element => {
                     fs.mkdirSync(path.join(process.cwd(), element));
                 });
             }
         },
         {
-            title: "src folders created",
-            skip: (ctx) => {
-                if (ctx.packagePath) {
-                    return "folders already exists"
-                }
-            },
-            task: (ctx) => {
-                srcFolder.forEach(element => {
-                    fs.mkdirSync(path.join(process.cwd(), element));
-                });
-            }
-        },
-        {
-            title: "client files created",
+            title: "files created",
             skip: (ctx) => {
                 if (ctx.packagePath) {
                     return "client files already exists"
                 }
             },
             task: (ctx) => {
-                clientFiles.forEach(element => {
+                files.forEach(element => {
                     const clientFilePath = path.join(process.cwd(), element.path)
                     fs.writeFileSync(clientFilePath, element.content);
                 });
             }
         },
         {
-            title: "client components created",
-            skip: (ctx) => {
-                if (ctx.packagePath) {
-                    return "components already exists"
-                }
-            },
-            task: (ctx) => {
-                clientComponents.forEach(element => {
-                    const clientComponentPath = path.join(process.cwd(), element.path)
-                    fs.writeFileSync(clientComponentPath, element.content);
-                });
-            }
-        },
-        {
-            title: "client layouts created",
-            task: (ctx) => {
-                clientLayouts.forEach(element => {
-                    const clientLayoutPath = path.join(process.cwd(), element.path)
-                    fs.writeFileSync(clientLayoutPath, element.content);
-                });
-            }
-        },
-        {
-            title: "client pages created",
-            task: (ctx) => {
-                clientPages.forEach(element => {
-                    const clientPagePath = path.join(process.cwd(), element.path)
-                    fs.writeFileSync(clientPagePath, element.content);
-                });
-            }
-        },
-        {
-            title: "env file created",
-            skip: (ctx) => {
-                if (ctx.packagePath) {
-                    return "env file already exists"
-                }
-            },
+            title: "dynamic files created",
             task: (ctx) => {
                 const envPath = path.join(process.cwd(), '.env')
                 fs.writeFileSync(envPath, envGenerator(questions));
+                const nextConfigPath = path.join(process.cwd(), 'next.config.mjs')
+                fs.writeFileSync(nextConfigPath, nextConfigGenerator(questions));
             }
         },
         {

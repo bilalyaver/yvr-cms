@@ -54,9 +54,6 @@ npx yvr-cms -p
 npm run dev
 ```
 
-<h2>🍰 Contribution Guidelines:</h2>
-
-  
   
 <h2>💻 Built with</h2>
 

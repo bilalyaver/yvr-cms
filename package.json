@@ -1,7 +1,7 @@
 {
 	"name": "yvr-cms",
 	"description": "A headless CMS boilerplate with Node.js, Mongoose, Nextjs and CLI",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"license": "MIT",
 	"homepage": "https://github.com/bilalyaver/yvr-cms#readme",
 	"bin": {
