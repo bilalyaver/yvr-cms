@@ -57,6 +57,11 @@ function createNextJsFiles(targetDirectory) {
 		return;
 	}
 
+	if(flags.test) {
+		log.info("Test işlemi yapılıyor...");
+		return;
+	}
+
 	const checkPackageResult = checkPackage();
 
 	if (!checkPackageResult.isThere) {

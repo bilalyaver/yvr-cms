@@ -2,10 +2,6 @@
 
 Welcome to the yvr-cms documentation site!
 
-# yvr-cms Documentation
-
-Welcome to the yvr-cms documentation site!
-
 <h1 align="center" id="title">yvr-cms</h1>
 
 <p id="description">**YVR-CMS** allows you to create a fully customizable Headless Content Management System (CMS) using Node.js Express.js and MongoDB. This CMS enables you to dynamically manage your content and easily integrate it into any frontend platform. It comes with dynamic schema management user authentication and an easily extensible structure.</p>

@@ -41,6 +41,12 @@ const flags = {
 		desc: `Create a new project`,
 		example: 'p <projectName>'
 	},
+	updateClient: {
+		type: `boolean`,
+		alias: `u`,
+		desc: `Update client files`,
+		example: 'u'
+	},
 };
 
 const commands = {
