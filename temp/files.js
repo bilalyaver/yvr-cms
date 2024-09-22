@@ -216,10 +216,6 @@ const clientFiles = [
     "content": "{\n  \"compilerOptions\": {\n    \"baseUrl\": \".\",\n    \"paths\": {\n      \"@/*\": [\"*\"]\n    }\n  }\n}"
   },
   {
-    "path": "package.json",
-    "content": "{\n  \"name\": \"yvr-cms\",\n  \"version\": \"1.0.0\",\n  \"description\": \"\",\n  \"main\": \"index.js\",\n  \"scripts\": {\n    \"dev\": \"cross-env NODE_ENV=development nodemon app.js\",\n    \"start\": \"cross-env NODE_ENV=production node app.js\",\n    \"build\": \"next build ./client\"\n  },\n  \"keywords\": [],\n  \"author\": \"Thejs\",\n  \"license\": \"ISC\",\n  \"devDependencies\": {\n    \"@ckeditor/ckeditor5-react\": \"^9.2.0\",\n    \"@tanstack/react-table\": \"^8.20.5\",\n    \"axios\": \"^1.7.7\",\n    \"bcrypt\": \"^5.1.1\",\n    \"class-variance-authority\": \"^0.7.0\",\n    \"clsx\": \"^2.1.1\",\n    \"cookies-next\": \"^4.2.1\",\n    \"cors\": \"^2.8.5\",\n    \"cross-env\": \"^7.0.3\",\n    \"dotenv\": \"^16.4.5\",\n    \"express\": \"^4.21.0\",\n    \"jsonwebtoken\": \"^9.0.2\",\n    \"lucide-react\": \"^0.438.0\",\n    \"next\": \"^14.2.13\",\n    \"mongoose\": \"^8.6.3\",\n    \"postcss\": \"^8.4.47\",\n    \"react-dropzone\": \"^14.2.3\",\n    \"slugify\": \"^1.6.6\",\n    \"tailwind-merge\": \"^2.5.2\",\n    \"tailwindcss\": \"^3.4.12\",\n    \"tailwindcss-animate\": \"^1.0.7\",\n    \"yvr-core\": \"^0.3.17\",\n    \"yvr-image-editor\": \"^0.1.0\"\n  },\n  \"dependencies\": {\n    \"@radix-ui/react-checkbox\": \"^1.1.1\",\n    \"@radix-ui/react-dialog\": \"^1.1.1\",\n    \"@radix-ui/react-dropdown-menu\": \"^2.1.1\",\n    \"@radix-ui/react-label\": \"^2.1.0\",\n    \"@radix-ui/react-progress\": \"^1.1.0\",\n    \"@radix-ui/react-select\": \"^2.1.1\",\n    \"@radix-ui/react-separator\": \"^1.1.0\",\n    \"@radix-ui/react-slot\": \"^1.1.0\",\n    \"@radix-ui/react-switch\": \"^1.1.0\",\n    \"@radix-ui/react-toast\": \"^1.2.1\"\n  }\n}\n"
-  },
-  {
     "path": "postcss.config.mjs",
     "content": "\n       /** @type {import('postcss-load-config').Config} */\nconst config = {\n  plugins: {\n    tailwindcss: {},\n  },\n};\n\nexport default config;\n\n         "
   },
