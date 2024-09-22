@@ -2,7 +2,6 @@ const clientFolder = [
   "client",
   "client/c",
   "client/c/lib",
-  "client/client",
   "client/components",
   "client/components/collection",
   "client/components/contentManagement",

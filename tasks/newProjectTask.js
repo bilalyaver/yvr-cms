@@ -9,6 +9,7 @@ import folders from "../temp/folders.js"
 import files from "../temp/files.js"
 import envGenerator from "../temp/envGenerator.js"
 import nextConfigGenerator from "../temp/nextConfigGenerator.js"
+import yvrConfigGenerator from "../temp/yvrConfigGenerator.js"
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -26,19 +27,6 @@ const newProjectTask = (questions) => {
                 fs.writeFileSync(packagePath, JSON.stringify(packageGenerator(questions.name, questions.description, questions.author), null, 2));
             }
         },
-        // {
-        //     title: "app.js file created",
-        //     skip: (ctx) => {
-        //         if (ctx.packagePath) {
-        //             return "app.js file already exists"
-        //         }
-        //     },
-        //     task: (ctx) => {
-        //         const appPath = path.join(process.cwd(), 'app.js')
-        //         fs.writeFileSync(appPath, appGenerator());
-
-        //     }
-        // },
         {
             title: "folders created",
             skip: (ctx) => {
@@ -73,6 +61,8 @@ const newProjectTask = (questions) => {
                 fs.writeFileSync(envPath, envGenerator(questions));
                 const nextConfigPath = path.join(process.cwd(), 'next.config.mjs')
                 fs.writeFileSync(nextConfigPath, nextConfigGenerator(questions));
+                const yvrConfigPath = path.join(process.cwd(), 'yvr.config.json')
+                fs.writeFileSync(yvrConfigPath, JSON.stringify(yvrConfigGenerator(), null, 2));
             }
         },
         {

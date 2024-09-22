@@ -10,7 +10,6 @@ const installComponents = () => {
         spinner.succeed('Components installed successfully'); // İşlem başarılı olursa spinnerı durdur ve başarılı mesajı göster
     } catch (error) {
         spinner.fail('Failed to install components'); // Hata olursa spinnerı durdur ve hata mesajı göster
-        console.error(error);
     }
 };
 

@@ -1,7 +1,7 @@
 {
 	"name": "yvr-cms",
 	"description": "A headless CMS boilerplate with Node.js, Mongoose, Nextjs and CLI",
-	"version": "0.3.1",
+	"version": "0.3.2",
 	"license": "MIT",
 	"homepage": "https://github.com/bilalyaver/yvr-cms#readme",
 	"bin": {
@@ -45,9 +45,14 @@
 		"format": "prettier --write \"./**/*.{js,json}\"",
 		"publish:github": "npm publish --registry=https://npm.pkg.github.com/",
 		"publish:npm": "npm publish --registry=https://registry.npmjs.org/",
-		"publish:both": "npm run publish:github && npm run publish:npm"
+		"publish:both": "npm run publish:github && npm run publish:npm",
+		"dev": "yvr dev",
+		"start": "yvr start",
+		"build": "yvr build"
 	},
 	"dependencies": {
+		"archiver": "^7.0.1",
+		"axios": "^1.7.7",
 		"chalk": "^5.0.1",
 		"cli-alerts": "^1.2.2",
 		"cli-handle-error": "^4.4.0",

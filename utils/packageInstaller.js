@@ -20,7 +20,6 @@ const packageInstaller = (modules) => {
         spinner.succeed('Modules installed successfully'); // İşlem başarılı olursa spinnerı durdur ve başarılı mesajı göster
     } catch (error) {
         spinner.fail('Failed to install modules'); // Hata olursa spinnerı durdur ve hata mesajı göster
-        console.error(error);
     }
 };
 
