@@ -17,7 +17,6 @@ Welcome to the yvr-cms documentation site!
 Here're some of the project's best features:
 
 *   Dynamic schema and collection management
-*   Dynamic schema and collection management
 *   JWT-based user authentication and authorization (Active is not)
 *   Added Swagger Docs
 *   Update client folder
