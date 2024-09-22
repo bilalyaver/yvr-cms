@@ -51,6 +51,16 @@ npx yvr-cms -p
 npm run dev
 ```
 
+<h2>
+     🆙 Update client folder
+</h2>
+
+<p>Run the following command in your terminal to initialize update client folder:</p>
+
+```
+npx yvr-cms -u
+```
+
   
 <h2>💻 Built with</h2>
 
