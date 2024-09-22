@@ -19,7 +19,8 @@ Here're some of the project's best features:
 *   Dynamic schema and collection management
 *   Dynamic schema and collection management
 *   JWT-based user authentication and authorization (Active is not)
-*   Add Swagger Docs
+*   Added Swagger Docs
+*   Update client folder
 *   Flexible database management with MongoDB support
 *   Easily extensible and adaptable structure
 *   With this project you can build your own content management system to provide content to your frontend applications with the flexibility you need. YVR-CMS is optimized for both small and large projects.
@@ -55,7 +56,7 @@ npm run dev
      🆙 Update client folder
 </h2>
 
-<p>Run the following command in your terminal to initialize update client folder:</p>
+<p>Run the following command in your terminal to initialize client folder update:</p>
 
 ```
 npx yvr-cms -u
