@@ -24,6 +24,7 @@ Here're some of the project's best features:
 *   Easily extensible and adaptable structure
 *   With this project you can build your own content management system to provide content to your frontend applications with the flexibility you need. YVR-CMS is optimized for both small and large projects.
 *   Media Management Panel
+*   Api Managament Permissions
 
 <h2>🛠️ Installation Steps:</h2>
 
